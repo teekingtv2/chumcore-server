@@ -10,6 +10,7 @@ const Admin = require("../../models/admin/Admin");
 
 const adminUpdateProfile = async (req, res) => {
   const adminId = req.id;
+  console.log("req.body", req.body);
   try {
     const admin = await Admin.findById(adminId);
     if (!admin) {
@@ -91,8 +92,11 @@ const verifyAdminLoginToken = (req, res, next) => {
       209
     );
   }
-  console.log("cookie:", cookies);
-  const token = cookies.split("=")[1];
+  let cook = cookies.split("; ")[1];
+  if (!cook) {
+    cook = cookies.split("; ")[0];
+  }
+  const token = cook.split("=")[1];
   if (!token) {
     return sendError(
       res,
@@ -128,12 +132,21 @@ const logoutAdmin = (req, res, next) => {
   console.log("Logout api called");
   const cookies = req.headers.cookie;
   if (!cookies) {
-    return sendError(res, "No cookie found", 205);
+    return sendError(
+      res,
+      "No session cookie. You are not authenticated for this operation",
+      205
+    );
   }
-  const token = cookies.split("=")[1];
+  let cook = cookies.split("; ")[1];
+  if (!cook) {
+    cook = cookies.split("; ")[0];
+  }
+  const token = cook.split("=")[1];
   if (!token) {
     return sendError(res, "No token found", 205);
   }
+  console.log({ token });
   jwt.verify(String(token), process.env.JWT_ADMIN_SECRET_KEY, (err, admin) => {
     if (err) {
       return sendError(res, "Invalid Token", 400);
