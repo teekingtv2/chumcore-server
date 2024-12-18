@@ -1,37 +1,9 @@
-const express = require('express');
-const {
-  getUser,
-  updateUserProfile,
-  updateUserPassword,
-  fetchuserTransactions,
-} = require('../../controllers/user/user-profile-controller');
-const { verifyUserLoginToken } = require('../../controllers/user/user-auth-controller');
-const { passwordUpdatedEmail } = require('../../services/emailServices');
-const {
-  validate,
-  validateUpdateProfileUserParams,
-  validateUpdatePasswordParams,
-} = require('../../middlewares/validator');
+const express = require("express");
+const { register } = require("../../controllers/user/user-profile-controller");
 
 const router = express.Router();
 
 // Profile
-router.get('/user', verifyUserLoginToken, getUser);
-router.get('/transactions', verifyUserLoginToken, fetchuserTransactions);
-router.put(
-  '/update-profile',
-  verifyUserLoginToken,
-  validateUpdateProfileUserParams,
-  validate,
-  updateUserProfile
-);
-router.put(
-  '/update-password',
-  verifyUserLoginToken,
-  validateUpdatePasswordParams,
-  validate,
-  updateUserPassword,
-  passwordUpdatedEmail
-);
+router.post("/register", register);
 
 module.exports = router;

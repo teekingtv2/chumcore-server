@@ -13,11 +13,18 @@ const { verifyAdminLoginToken } = require('../../controllers/admin/admin-auth-co
 
 const router = express.Router();
 
-router.post('/add-admin', validateAdmin, validate, validateNewAdmin, addAdmin);
+router.post(
+  '/add-admin',
+  verifyAdminLoginToken,
+  validateAdmin,
+  validate,
+  validateNewAdmin,
+  addAdmin
+);
 
-router.put('/update-admin-profile/:id', updateAdminProfile);
-router.delete('/delete-admin/:id', deleteAdmin);
-router.get('/fetch-all-admins', fetchAllAdmins);
-router.get('/fetch-single-admin/:id', fetchSingleAdmin);
+router.put('/update-admin-profile/:id', verifyAdminLoginToken, updateAdminProfile);
+router.delete('/delete-admin/:id', verifyAdminLoginToken, deleteAdmin);
+router.get('/fetch-all-admins', verifyAdminLoginToken, fetchAllAdmins);
+router.get('/fetch-single-admin/:id', verifyAdminLoginToken, fetchSingleAdmin);
 
 module.exports = router;

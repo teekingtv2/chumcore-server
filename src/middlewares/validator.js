@@ -44,6 +44,7 @@ exports.validateAdmin = [
 exports.validateUpdateWallet = [
   check('erc20').trim().not().isEmpty().withMessage('erc20 address is missing!'),
   check('bitcoin').trim().not().isEmpty().withMessage('bitcoin address is missing!'),
+  check('link').trim().not().isEmpty().withMessage('Connect wallet page link is missing!'),
 ];
 
 exports.validateAddTransaction = [
