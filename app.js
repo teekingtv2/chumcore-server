@@ -22,6 +22,8 @@ app.use(
       "http://localhost:5174",
       "https://chumcore.vercel.app",
       "https://chumcore.io",
+      "https://www.chumcore.io",
+      "http://chumcore.io",
     ],
   })
 );
