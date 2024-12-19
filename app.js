@@ -45,4 +45,7 @@ app.listen(process.env.APP_PORT || 7000, () => {
   console.log(`Node version: ${process.version}`);
   // console.log(`Jest version: ${jest.version}`);
   console.log(`Listening to requests on port ${process.env.APP_PORT}`);
+  setInterval(() => {
+    console.log("Server is live");
+  }, 300000);
 });
