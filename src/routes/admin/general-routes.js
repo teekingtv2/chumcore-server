@@ -5,6 +5,6 @@ const {
 } = require("../../controllers/admin/admin-auth-controller");
 const router = express.Router();
 
-router.get("/all-users", verifyAdminLoginToken, fetchAllUsers);
+router.get("/all-users", fetchAllUsers);
 
 module.exports = router;
